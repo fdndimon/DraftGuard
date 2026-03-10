@@ -11,6 +11,11 @@ Ever typed a long message, accidentally refreshed the page, and lost everything?
 - **Auto-Cleanup**: Automatically purges the saved draft when the form is successfully submitted.
 - **Supports Complex Inputs**: Handles text, textareas, radio buttons, and multi-select checkboxes out of the box.
 
+### Demo:
+```html
+ https://fdndimon.github.io/DraftGuard/
+```
+
 ### 🚀 Usage
 
 ```html
