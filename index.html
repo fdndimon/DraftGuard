@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>DraftGuard Demo</title>
+  <style>
+    body { font-family: system-ui; background: #f7f9fc; padding: 40px; }
+    .container { max-width: 500px; margin: 0 auto; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+    .form-group { margin-bottom: 20px; }
+    label { display: block; margin-bottom: 5px; font-weight: bold; color: #333; }
+    input[type="text"], textarea { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; }
+    button { background: #007bff; color: white; border: none; padding: 12px 20px; border-radius: 6px; cursor: pointer; font-size: 16px; width: 100%; }
+    button:hover { background: #0056b3; }
+    .status { font-size: 12px; color: #888; text-align: right; min-height: 18px; margin-bottom: 15px; }
+    .notice { background: #fff3cd; color: #856404; padding: 10px; border-radius: 6px; font-size: 14px; margin-bottom: 20px; border: 1px solid #ffeeba; }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2>Issue Tracker</h2>
+    
+    <div class="notice">
+      <b>Try this:</b> Type something, then refresh the page (F5) or close the tab. Your data will survive!
+    </div>
+
+    <div class="status" id="saveStatus"></div>
+
+    <form id="issueForm">
+      <div class="form-group">
+        <label>Title</label>
+        <input type="text" name="title" placeholder="What is the problem?">
+      </div>
+      
+      <div class="form-group">
+        <label>Description</label>
+        <textarea name="description" rows="5" placeholder="Steps to reproduce..."></textarea>
+      </div>
+      
+      <div class="form-group">
+        <label>Severity</label>
+        <label><input type="radio" name="severity" value="low"> Low</label>
+        <label><input type="radio" name="severity" value="high"> High</label>
+      </div>
+
+      <button type="submit">Submit Issue</button>
+    </form>
+  </div>
+
+  <script src="draftguard.js"></script>
+  <script>
+    // 1. Инициализируем защиту для формы
+    const guard = new DraftGuard('#issueForm');
+
+    // 2. Добавляем немного UI-магии (показываем пользователю, что всё под контролем)
+    const statusEl = document.getElementById('saveStatus');
+    const form = document.getElementById('issueForm');
+
+    form.addEventListener('draft:saved', (e) => {
+      const time = e.detail.time.toLocaleTimeString();
+      statusEl.textContent = `Draft auto-saved at ${time} ☁️`;
+    });
+
+    form.addEventListener('draft:restored', () => {
+      statusEl.textContent = `Draft restored from previous session! 🔄`;
+      statusEl.style.color = '#28a745';
+    });
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault(); // Просто для демо, чтобы страница не перезагружалась
+      alert('Form submitted! Draft has been cleared.');
+      form.reset();
+      statusEl.textContent = '';
+    });
+  </script>
+</body>
+</html>
