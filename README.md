@@ -13,7 +13,7 @@ Ever typed a long message, accidentally refreshed the page, and lost everything?
 
 ### Demo:
 ```html
- https://fdndimon.github.io/DraftGuard/
+https://fdndimon.github.io/DraftGuard/
 ```
 
 ### 🚀 Usage
